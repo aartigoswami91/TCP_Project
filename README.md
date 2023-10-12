@@ -14,7 +14,9 @@ Application contains following steps
 git clone url
 2. run the server
    python server.py
-3. run client
+   <img width="969" alt="image" src="https://github.com/aartigoswami91/goto/assets/101053581/e42790ee-3225-4ede-85dd-864d65f081c2">
+
+4. run client
    python client.py
 4.it will show the confirmation message server has connected
 
