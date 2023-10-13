@@ -1,35 +1,39 @@
-#importing socket module
 import socket
+import threading
+import sys
 
-# creating socket instance
-client_object = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM)
+#Wait for incoming data from server
+#.decode is used to turn the message in bytes to a string
+def receive(socket, signal):
+    while signal:
+        try:
+            data = socket.recv(32)
+            print(str(data.decode("utf-8")))
+        except:
+            print("You have been disconnected from the server")
+            signal = False
+            break
 
-# target ip address and port
-ip_address = '127.0.0.1'
-port = 5556
+#Get host and port
+host = input("Host: ")
+port = int(input("Port: "))
 
-# instance requesting for connection to the specified address and port
-client_object.connect((ip_address,port))
+#Attempt connection to server
+try:
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((host, port))
+    print(f"Connected to server on host {host} and port {port}")
+except:
+    print("Could not make a connection to the server")
+    input("Press enter to quit")
+    sys.exit(0)
 
-# receiving response from server
-data_receive = client_object.recv(1024)
+#Create new thread to wait for data
+receiveThread = threading.Thread(target = receive, args = (sock, True))
+receiveThread.start()
 
-# if response is not null
-if data_receive:
-	# Connection is successful
-    print("CLIENT CONNECTED TO SERVER")
-    print(data_receive.decode('utf-8'))
-    
-    
-    while data_receive:
-    	# user input
-        print("Enter AOR:")
-        client_input = input().encode('utf-8')
-        
-        # sending request to the server
-        client_object.send(client_input)
-        
-        # receiving response from the server
-        data_receive = client_object.recv(1024)
-        if data_receive:
-            print("{}: {}".format("SERVER",data_receive.decode('utf-8')))    
+#Send data to server
+#str.encode is used to turn the string message into bytes so it can be sent across the network
+while True:
+    message = input()
+    sock.sendall(str.encode(message))

@@ -5,9 +5,9 @@
 
 Application contains following steps
 <li>Server read the AOR record file</li>
-<li>server can connect multiple file</li>
-<li>client can request with AOR number and if number matches with the given AOR number then server return matched AOR data one at a time</li>
-<li>If server does not receive any record within 10 sec then connect will get close.</li>
+<li>Server can connect multiple clients</li>
+<li>Client can send request with AOR number and if       number matches with the given AOR number then server return matched AOR JSON data one at a time other wise server returns empty line</li>
+<li>If server does not receive any record within 10 sec from client then connect will get closed by server</li>
 
 # Running the Application locally
 1. Clone the reponsitory
@@ -19,19 +19,18 @@ Application contains following steps
    ```
    python server.py
    ```
-   
-   <img width="969" alt="image" src="https://github.com/aartigoswami91/goto/assets/101053581/e42790ee-3225-4ede-85dd-864d65f081c2">
+   ![Alt text](image.png)
 
-5. run client
+
+4. run client
    ```
       python client.py
    ```
-   
-4.it will show the confirmation message server has connected
+   ![Alt text](image-1.png)
 
-<img width="969" alt="image" src="https://github.com/aartigoswami91/goto/assets/101053581/5bf44388-0f60-4e7b-86a7-a05148c42d17">
+5. It will show the confirmation message server has connected
 
-5. Next step ask user to enter AOR
+6. Next step ask user to enter AOR
    
 7. If record matches with the given AOR, it will return the record related to the AOR otherwise server will return empty line.
    
